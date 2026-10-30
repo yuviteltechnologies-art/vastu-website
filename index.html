@@ -83,7 +83,7 @@
   <!-- TOP ANNOUNCEMENT BAR -->
   <div class="bg-gradient-to-r from-amber-600 via-amber-500 to-amber-700 text-slate-950 text-xs sm:text-sm font-semibold py-2 px-4 text-center flex items-center justify-center gap-2 shadow-md">
     <span class="inline-block px-2 py-0.5 bg-black text-amber-300 rounded text-xs uppercase tracking-wider font-extrabold">Offer</span>
-    <span>Special Launch Discount: 50% OFF on all GeoGebra Vastu Grids & Templates!</span>
+    <span id="announcementText">Special Launch Discount: 50% OFF on all GeoGebra Vastu Grids & Templates!</span>
     <a href="#products" class="underline font-bold hover:text-white transition ml-1">Claim Offer &rarr;</a>
   </div>
 
@@ -92,14 +92,14 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
       <!-- Logo -->
       <a href="#" class="flex items-center gap-3 group">
-        <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-slate-950 font-heading font-black text-xl shadow-lg shadow-amber-500/20 group-hover:scale-105 transition">
+        <div id="brandLogoContainer" class="w-11 h-11 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-slate-950 font-heading font-black text-xl shadow-lg shadow-amber-500/20 group-hover:scale-105 transition overflow-hidden">
           <i data-lucide="compass" class="w-6 h-6"></i>
         </div>
         <div>
-          <span class="font-heading font-black text-xl sm:text-2xl tracking-tight text-white flex items-center gap-1">
+          <span id="brandNameText" class="font-heading font-black text-xl sm:text-2xl tracking-tight text-white flex items-center gap-1">
             Vastu<span class="text-vastu-gold">Geo</span>
           </span>
-          <p class="text-[10px] text-amber-200/70 tracking-widest uppercase font-semibold">Mathematical Vastu Tools</p>
+          <p id="brandTaglineText" class="text-[10px] text-amber-200/70 tracking-widest uppercase font-semibold">Mathematical Vastu Tools</p>
         </div>
       </a>
 
@@ -136,17 +136,17 @@
         <!-- Trust Tag -->
         <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-vastu-navyLight/80 border border-amber-500/30 text-amber-300 text-xs sm:text-sm font-medium mb-6">
           <i data-lucide="shield-check" class="w-4 h-4 text-vastu-gold"></i>
-          <span>For Modern Vastu Consultants, Architects & Civil Engineers</span>
+          <span id="heroBadgeText">For Modern Vastu Consultants, Architects & Civil Engineers</span>
         </div>
 
         <!-- Main Headline -->
-        <h1 class="font-heading font-extrabold text-3xl sm:text-5xl lg:text-6xl tracking-tight leading-[1.15] mb-6">
+        <h1 id="heroTitleText" class="font-heading font-extrabold text-3xl sm:text-5xl lg:text-6xl tracking-tight leading-[1.15] mb-6">
           Khatam Karein Manual Compass Ki Galatfehmi. 
           <span class="gold-gradient-text block mt-2">100% Accurate Vastu with GeoGebra</span>
         </h1>
 
         <!-- Subheadline -->
-        <p class="text-base sm:text-lg text-slate-300 leading-relaxed mb-8 max-w-2xl mx-auto">
+        <p id="heroSubtitleText" class="text-base sm:text-lg text-slate-300 leading-relaxed mb-8 max-w-2xl mx-auto">
           Kisi bhi floor plan ko sirf 2 minute me <strong class="text-amber-300">16 Zones, 32 Entrances aur 45 Devtas</strong> ke sath degree-to-degree map karein. Ready-to-use <span class="text-white font-semibold">.ggb</span> templates bina kisi AutoCAD ya heavy software ke!
         </p>
 
@@ -362,8 +362,8 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
         <div>
-          <span class="font-heading font-bold text-lg text-white">Vastu<span class="text-vastu-gold">Geo</span> Tools</span>
-          <p class="text-slate-500 text-xs mt-1">Mathematical precision software & templates for Vastu Practitioners.</p>
+          <span id="footerBrandName" class="font-heading font-bold text-lg text-white">Vastu<span class="text-vastu-gold">Geo</span> Tools</span>
+          <p id="footerBrandTagline" class="text-slate-500 text-xs mt-1">Mathematical precision software & templates for Vastu Practitioners.</p>
         </div>
         <div class="flex items-center gap-6">
           <a href="#products" class="hover:text-amber-400">Products</a>
@@ -589,6 +589,51 @@
       sheetUrl: localStorage.getItem('vastu_sheet_url') || ""
     };
 
+    // Function to apply dynamic site settings to UI
+    function applySiteSettings(s) {
+      if (!s) return;
+      if (s.brand_name) {
+        const brandEls = [document.getElementById('brandNameText'), document.getElementById('footerBrandName')];
+        brandEls.forEach(el => { if (el) el.innerHTML = s.brand_name; });
+        document.title = s.brand_name + " | Mathematical Vastu Tools";
+      }
+      if (s.brand_tagline) {
+        const tagEls = [document.getElementById('brandTaglineText'), document.getElementById('footerBrandTagline')];
+        tagEls.forEach(el => { if (el) el.innerText = s.brand_tagline; });
+      }
+      if (s.logo_url && s.logo_url.trim()) {
+        const logoContainer = document.getElementById('brandLogoContainer');
+        if (logoContainer) {
+          logoContainer.innerHTML = `<img src="${s.logo_url}" alt="Logo" class="w-full h-full object-cover rounded-xl" />`;
+        }
+      }
+      if (s.announcement_text) {
+        const el = document.getElementById('announcementText');
+        if (el) el.innerText = s.announcement_text;
+      }
+      if (s.hero_badge) {
+        const el = document.getElementById('heroBadgeText');
+        if (el) el.innerText = s.hero_badge;
+      }
+      if (s.hero_title) {
+        const el = document.getElementById('heroTitleText');
+        if (el) el.innerHTML = s.hero_title;
+      }
+      if (s.hero_subtitle) {
+        const el = document.getElementById('heroSubtitleText');
+        if (el) el.innerHTML = s.hero_subtitle;
+      }
+      if (s.whatsapp_number) {
+        storeConfig.whatsappNumber = s.whatsapp_number;
+        localStorage.setItem('vastu_wa_num', s.whatsapp_number);
+      }
+      if (s.upi_id) {
+        storeConfig.upiId = s.upi_id;
+        localStorage.setItem('vastu_upi_id', s.upi_id);
+      }
+      applyContactDetails();
+    }
+
     // Update WhatsApp links on page
     function applyContactDetails() {
       const headerWa = document.getElementById('headerWaBtn');
@@ -604,7 +649,7 @@
     }
 
     // ==========================================
-    // 3. FETCH PRODUCTS FROM GOOGLE SHEET
+    // 3. FETCH PRODUCTS & SETTINGS FROM GOOGLE SHEET
     // ==========================================
     async function fetchProductsFromSheet() {
       const syncStatus = document.getElementById('syncStatus');
@@ -622,6 +667,13 @@
         const response = await fetch(storeConfig.sheetUrl);
         const data = await response.json();
         
+        // 1. Sync dynamic settings
+        if (data.settings && Object.keys(data.settings).length > 0) {
+          applySiteSettings(data.settings);
+          localStorage.setItem('vastu_cached_settings', JSON.stringify(data.settings));
+        }
+
+        // 2. Sync dynamic products
         let products = [];
         if (Array.isArray(data)) {
           products = data;
@@ -884,6 +936,14 @@
 
     // INITIALIZATION
     document.addEventListener('DOMContentLoaded', () => {
+      // Load cached settings immediately if available
+      try {
+        const cached = localStorage.getItem('vastu_cached_settings');
+        if (cached) {
+          applySiteSettings(JSON.parse(cached));
+        }
+      } catch (e) {}
+
       applyContactDetails();
       fetchProductsFromSheet();
       lucide.createIcons();

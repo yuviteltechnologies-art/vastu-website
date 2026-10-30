@@ -1,80 +1,54 @@
-# VastuGeo Store - Setup & Integration Guide
+# VastuGeo Store - Setup & Dynamic Google Sheet Guide
 
-Aapki serverless website ready ho chuki hai! Yeh guide follow karke aap isse **Google Sheet**, **WhatsApp**, aur **Facebook Ads** ke sath connect kar sakte hain.
-
----
-
-## 📁 Project Files
-1. **`index.html`**: Complete Frontend website (Modern Gold/Indigo theme, Responsive, Category filters, WhatsApp order modal, UPI QR code generator, FAQs).
-2. **`Code.gs`**: Google Apps Script code (Jo Google Sheet ko Live API bana deta hai).
+Aapki website ab **100% Dynamic** ho chuki hai! Aap Google Sheet se na sirf **Products aur Prices**, balki **Website ka Naam, Logo, Headline, WhatsApp Number aur UPI ID** bhi live change kar sakte hain.
 
 ---
 
-## 🚀 Step 1: Apne Browser Me Website Open Karke Dekhein
-Aap bina kisi server ke abhi ke abhi isse test kar sakte hain:
-* Apne computer par `g:\Vastu_website\index.html` file par double click karein.
-* Website aapke Chrome ya browser me open ho jayegi!
-* Isme pehle se dummy products loaded hain taaki aap design aur WhatsApp order modal dekh sakein.
+## 🚀 Live Website
+👉 **https://yuviteltechnologies-art.github.io/vastu-website/**
 
 ---
 
-## 📊 Step 2: Google Sheet Setup (Backend CMS)
+## 📊 Google Sheet Setup (2 Tabs Format)
 
-### 1. Nayi Google Sheet Banayein:
-* [sheets.google.com](https://sheets.google.com) par jayein aur **Blank Sheet** banayein.
-* Sheet ka naam rakhein: `VastuGeo Products`.
-* Tab ka naam (niche sheet name) `Products` kar dein.
+Apni Google Sheet me niche diye gaye **2 Tabs (Sheets)** banayein:
 
-### 2. Sheet me pehli row (Headers) yeh likhein:
-Row 1 me yeh 10 columns honge:
+### 📑 Tab 1: `Settings` (Website Details)
+Sheet ke pehle tab ka naam rakhein: `Settings`  
+Row 1 me headers: `key` | `value` | `description`
 
-| A | B | C | D | E | F | G | H | I | J |
+| key | value | description |
+| :--- | :--- | :--- |
+| `brand_name` | VastuGeo | Website ka main naam / Logo text |
+| `brand_tagline` | Mathematical Vastu Tools | Logo ke niche chota text |
+| `logo_url` | (Image link ya khali chhod dein) | Custom logo image URL |
+| `announcement_text` | Special Launch Discount: 50% OFF today! | Top bar announcement text |
+| `hero_badge` | For Modern Vastu Consultants & Architects | Chota trust badge |
+| `hero_title` | Khatam Karein Manual Compass Ki Galatfehmi. 100% Accurate Vastu with GeoGebra | Hero headline |
+| `hero_subtitle` | 16 Zones, 32 Entrances aur 45 Devtas map karein... | Hero description |
+| `whatsapp_number` | 919876543210 | WhatsApp order number (with 91) |
+| `upi_id` | yourname@okaxis | UPI QR code payment address |
+
+---
+
+### 📑 Tab 2: `Products` (Digital Goods Catalog)
+Sheet ke doosre tab ka naam rakhein: `Products`  
+Row 1 me yeh 10 headers honge:
+
+| id | title | category | badge | price_original | price_selling | thumbnail | description | features | is_active |
 |---|---|---|---|---|---|---|---|---|---|
-| **id** | **title** | **category** | **badge** | **price_original** | **price_selling** | **thumbnail** | **description** | **features** | **is_active** |
-
-### 3. Google Apps Script Code Dalein (Free API):
-1. Sheet ke menu me jayein: **Extensions** ➔ **Apps Script**.
-2. Jo default code ho use mita kar hamari `Code.gs` file ka code paste kar dein.
-3. Upar blue button **"Deploy"** par click karein ➔ **"New deployment"** select karein.
-4. Settings:
-   - **Select type:** Web app (gear icon par click karke)
-   - **Execute as:** `Me` (aapka email)
-   - **Who has access:** `Anyone` (Bahut zaroori hai!)
-5. **Deploy** button dabayein aur permission grant karein.
-6. Jo **Web App URL** milega (jaise `https://script.google.com/macros/s/AKfycb.../exec`), use copy kar lein!
+| `ggb-16-zones` | 16 Zones GeoGebra Vastu Chakra | `software` | Most Popular | 1999 | 799 | image_url | Details... | Feature 1, Feature 2 | TRUE |
+| `ggb-32-doors` | 32 Entrances Calculator | `software` | Best Seller | 2499 | 999 | image_url | Details... | Feature 1, Feature 2 | TRUE |
+| `ggb-bundle` | Master Vastu Suite | `bundle` | 65% OFF | 7499 | 2499 | image_url | Details... | Feature 1, Feature 2 | TRUE |
 
 ---
 
-## 🔗 Step 3: Google Sheet ko Website Se Connect Karein
+## ⚡ 1-Minute Auto Setup (Apps Script)
 
-1. Apni website (`index.html`) ko browser me kholein.
-2. Sabse niche Footer me **"Sheet Settings"** link par click karein.
-3. Ek popup khulega:
-   - **WhatsApp Number:** Apna 10-digit number country code ke sath dalein (e.g., `919876543210`).
-   - **UPI ID:** Apni UPI ID dalein (e.g., `vastu@oksbi` ya `mobile@paytm`).
-   - **Google Sheet URL:** Jo Step 2 me Web App URL mila tha, yahan paste kar dein.
-4. **"Save & Refresh"** dabayein!
-5. **Kamaal dekhein:** Ab website direct aapki Google Sheet se live products uthayegi! Jab bhi aap sheet me price ya title badlenge, site par refresh karte hi update ho jayega.
-
----
-
-## 🎯 Step 4: Facebook Ads (Meta Ads) Ke Liye 100% Free Hosting
-
-Facebook ads me `script.google.com` link daalenge toh ad reject ho sakti hai. Isliye is `index.html` file ko 2 minute me free host karein:
-
-### Tarika: Cloudflare Pages ya Netlify (100% Free & Unlimited Traffic)
-1. [app.netlify.com/drop](https://app.netlify.com/drop) par jayein (koi credit card nahi lagta).
-2. Apna `Vastu_website` folder drag-and-drop kar dein.
-3. 5 second me aapko ek sundar live link mil jayega (e.g. `vastu-tools.netlify.app`).
-4. Agar aapke paas apni domain hai (e.g., `vastutools.in`), toh wo bhi 1-click me connect ho jati hai.
-5. Ab aap is link par **Facebook Meta Pixel** aur **FB Ads** bina kisi dar ya policy rejection ke chala sakte hain!
-
----
-
-## 💬 Step 5: WhatsApp Pe Order Kaise Aayega?
-1. Customer website par aayega aur **"Buy via WhatsApp"** dabayega.
-2. Pre-typed message khulega:
-   > *"Namaste VastuGeo! Mujhe yeh GeoGebra Software file chahiye: 16 Zones Template (₹799)..."*
-3. Customer aapko message bhejega.
-4. Aap WhatsApp par hi unko UPI QR bhejenge ya instant Google Drive download link share kar denge!
-
+Aapko manual tables banane ki bhi zaroorat nahi hai:
+1. Google Sheet me jayein ➔ **Extensions** ➔ **Apps Script**.
+2. Hamari `Code.gs` file ka pura code paste karein.
+3. Dropdown me function select karein: **`setupAutoTabs`** aur **Run** daba dein!
+4. Google Sheet me dono tabs (`Settings` aur `Products`) **apne aap sample data ke sath create ho jayenge!**
+5. Fir upar blue button **Deploy** ➔ **New deployment** ➔ **Web app** (Who has access: `Anyone`) karke URL copy karein.
+6. Website ke footer me **"Sheet Settings"** par click karke wo URL paste kar dein aur **Save** daba dein!
